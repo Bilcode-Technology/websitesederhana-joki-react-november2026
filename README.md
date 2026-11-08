@@ -15,10 +15,10 @@ Semua teks, password, soal kuis (11 soal), caption journey, surat monthversary &
 ## taruh file
 | file | lokasi |
 |---|---|
-| foto cover | `public/photos/cover.jpg` |
-| 11 foto journey | `public/photos/journey/1.jpg` … `11.jpg` |
-| foto wisuda | `public/photos/wisuda/1.jpg` … `8.jpg` (jumlah bisa diubah di content.ts) |
-| foto kado | `public/photos/kado.jpg` |
+| foto cover | `public/photos/cover.webp` |
+| 11 foto journey | `public/photos/journey/1.webp` … `11.webp` |
+| foto wisuda | `public/photos/wisuda/1.webp` … `9.webp` (jumlah bisa diubah di content.ts) |
+| foto kado | `public/photos/kado.webp` |
 | lagu 1 "sign of the times" (setelah password) | `public/music/lagu-1.mp3` |
 | lagu 2 "semua aku dirayakan" (setelah claim reward) | `public/music/lagu-2.mp3` |
 

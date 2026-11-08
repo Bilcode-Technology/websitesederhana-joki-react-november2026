@@ -19,7 +19,7 @@ export function Hero() {
           <span className="mast-letter block text-[clamp(1.6rem,7vw,2.6rem)] italic" aria-hidden>
             the
           </span>
-          <span className="block text-[clamp(3rem,16.5vw,6rem)] whitespace-nowrap" aria-hidden>
+          <span className="block text-[clamp(2.8rem,15vw,6rem)] whitespace-nowrap" aria-hidden>
             {MAST.split('').map((ch, i) => (
               <span key={i} className="mast-letter" style={{ animationDelay: `${80 + i * 45}ms` }}>
                 {ch === ' ' ? '\u00a0' : ch}

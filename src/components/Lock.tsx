@@ -1,6 +1,7 @@
 import { useState, type FormEvent } from 'react'
 import { config, hero, lock } from '../content'
 import { playWrong, unlockAudio } from '../lib/sfx'
+import { Photo } from './ui'
 
 export function Lock({ onUnlock }: { onUnlock: () => void }) {
   const [value, setValue] = useState('')
@@ -23,7 +24,7 @@ export function Lock({ onUnlock }: { onUnlock: () => void }) {
 
   return (
     <div
-      className={`fixed inset-0 z-overlay flex flex-col bg-nanas px-6 pt-[max(1.5rem,env(safe-area-inset-top))] pb-[max(1.5rem,env(safe-area-inset-bottom))] ${
+      className={`fixed inset-0 z-overlay flex flex-col overflow-y-auto bg-nanas px-6 pt-[max(1.5rem,env(safe-area-inset-top))] pb-[max(1.5rem,env(safe-area-inset-bottom))] ${
         leaving ? 'lock-exit pointer-events-none' : 'lock'
       }`}
     >
@@ -32,17 +33,21 @@ export function Lock({ onUnlock }: { onUnlock: () => void }) {
         <span>{hero.issue}</span>
       </div>
 
-      <div className="mx-auto flex w-full max-w-sm flex-1 flex-col justify-center text-center">
-        <h1 className="font-display leading-[0.85] font-black tracking-[-0.03em]">
-          <span className="block text-3xl italic">the</span>
-          <span className="block text-[clamp(3.2rem,17vw,5.5rem)]">nanas daily</span>
+      <div className="mx-auto my-auto flex w-full max-w-sm flex-col text-center">
+        <h1 className="mt-6 font-display leading-[0.85] font-black tracking-[-0.03em]">
+          <span className="block text-2xl italic">the</span>
+          <span className="block text-[clamp(2.8rem,14vw,4.5rem)]">nanas daily</span>
         </h1>
-        <p className="mt-3 font-display text-lg italic">— {hero.edition} —</p>
+        <p className="mt-2 font-display text-base italic">— {hero.edition} —</p>
 
-        <p className="mt-10 font-hand text-[1.9rem] leading-none text-raspberry -rotate-2">{lock.title}</p>
-        <p className="mx-auto mt-3 max-w-[32ch] text-base leading-relaxed">{lock.subtitle}</p>
+        <figure className="mx-auto mt-6 w-[46%] max-w-[180px] -rotate-3 bg-sheet p-2 pb-6 shadow-[0_18px_30px_-14px_oklch(0.25_0.06_152/0.7)]">
+          <Photo src={lock.photo} alt="papoy dan mommy nanas" label="foto kita 💗" eager className="w-full" style={{ aspectRatio: 4 / 5 }} />
+        </figure>
 
-        <form onSubmit={submit} className="mt-7" noValidate>
+        <p className="mt-6 font-hand text-[1.9rem] leading-none text-raspberry -rotate-2">{lock.title}</p>
+        <p className="mx-auto mt-2 max-w-[32ch] text-base leading-relaxed">{lock.subtitle}</p>
+
+        <form onSubmit={submit} className="mt-5" noValidate>
           <label htmlFor="pw" className="sr-only">
             password
           </label>
@@ -74,7 +79,7 @@ export function Lock({ onUnlock }: { onUnlock: () => void }) {
           >
             {lock.button}
           </button>
-          <p className="mt-5 font-hand text-2xl leading-tight">psst, {config.passwordHint}</p>
+          <p className="mt-4 font-hand text-2xl leading-tight">psst, {config.passwordHint}</p>
         </form>
       </div>
     </div>

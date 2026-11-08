@@ -43,6 +43,14 @@ export default function App() {
     setQuizDone(true)
   }
 
+  // balik ke halaman password: lagu stop, kuis & bagian rahasia ke-reset
+  const handleRestart = () => {
+    music.stop()
+    window.scrollTo({ top: 0, behavior: 'instant' })
+    setQuizDone(false)
+    setUnlocked(false)
+  }
+
   return (
     <>
       {!unlocked && <Lock onUnlock={handleUnlock} />}
@@ -61,7 +69,7 @@ export default function App() {
             signature={monthversaryLetter.signature}
           />
           <Quiz onComplete={handleQuizDone} />
-          {quizDone ? <HiddenSections /> : <LockedTeaser />}
+          {quizDone ? <HiddenSections onRestart={handleRestart} /> : <LockedTeaser />}
 
           <footer className="bg-leaf-deep text-sheet">
             <div className="mx-auto max-w-3xl px-5 pt-10 pb-[max(6rem,calc(env(safe-area-inset-bottom)+5rem))] text-center">

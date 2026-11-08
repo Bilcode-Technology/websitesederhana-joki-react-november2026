@@ -1,3 +1,4 @@
+import type { Poem } from '../content'
 import { Reveal, Section, SectionHead, type Tone } from './ui'
 
 type LetterProps = {
@@ -5,13 +6,15 @@ type LetterProps = {
   note?: string
   opening?: string
   paragraphs: string[]
+  /** puisi opsional, tampil setelah paragraf terakhir */
+  poem?: Poem
   closing?: string
   signature: string
   tone?: Tone
 }
 
 /** surat — dipakai buat surat monthversary & surat wisuda */
-export function Letter({ title, note, opening, paragraphs, closing, signature, tone = 'nanas' }: LetterProps) {
+export function Letter({ title, note, opening, paragraphs, poem, closing, signature, tone = 'nanas' }: LetterProps) {
   return (
     <Section tone={tone}>
       <SectionHead tone={tone} note={note} title={title} />
@@ -37,8 +40,29 @@ export function Letter({ title, note, opening, paragraphs, closing, signature, t
               </p>
             ))}
           </div>
+          {poem && (
+            <figure className="my-12 border-y-2 border-raspberry/30 py-10 text-center">
+              <span className="text-2xl text-raspberry" aria-hidden>
+                ❦
+              </span>
+              <figcaption className="mx-auto mt-3 max-w-[22ch] font-display text-[1.6rem] leading-tight font-black italic text-raspberry">
+                {poem.title}
+              </figcaption>
+              <div className="mx-auto mt-8 w-fit max-w-full space-y-6 text-left font-display text-base leading-[1.65] italic sm:text-[17px]">
+                {poem.stanzas.map((stanza, i) => (
+                  <p key={i}>
+                    {stanza.map((line, j) => (
+                      <span key={j} className="block pl-5 -indent-5">
+                        {line}
+                      </span>
+                    ))}
+                  </p>
+                ))}
+              </div>
+            </figure>
+          )}
           {closing && <p className="mt-8 font-display text-xl leading-snug font-bold italic">{closing}</p>}
-          <p className="mt-8 -rotate-2 text-right font-hand text-[2.1rem] leading-none text-raspberry">{signature}</p>
+          <p className="mt-8 ml-auto max-w-[16ch] -rotate-2 text-right font-hand text-[2.1rem] leading-[0.95] text-raspberry">{signature}</p>
         </article>
       </Reveal>
     </Section>

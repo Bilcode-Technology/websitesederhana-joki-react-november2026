@@ -50,5 +50,14 @@ export function useMusic() {
     else a.pause()
   }, [])
 
-  return { play, toggle, playing, available }
+  /** stop total + reset ke awal (dipakai tombol "ulangi dari awal") */
+  const stop = useCallback(() => {
+    const a = audioRef.current
+    if (!a) return
+    a.pause()
+    a.currentTime = 0
+    setAvailable(false)
+  }, [])
+
+  return { play, toggle, stop, playing, available }
 }

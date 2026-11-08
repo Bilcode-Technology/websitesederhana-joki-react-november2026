@@ -24,12 +24,14 @@ export function Photo({
   className = '',
   label,
   eager = false,
+  style,
 }: {
   src: string
   alt: string
   className?: string
   label?: string
   eager?: boolean
+  style?: CSSProperties
 }) {
   const [failed, setFailed] = useState(false)
   if (failed) {
@@ -39,6 +41,7 @@ export function Photo({
         aria-label={alt}
         className={`flex flex-col items-center justify-center gap-1 bg-nanas-deep text-center text-leaf ${className}`}
         style={{
+          ...style,
           backgroundImage:
             'repeating-linear-gradient(135deg, transparent 0 14px, color-mix(in oklch, var(--color-leaf) 7%, transparent) 14px 28px)',
         }}
@@ -58,6 +61,7 @@ export function Photo({
       loading={eager ? 'eager' : 'lazy'}
       decoding="async"
       onError={() => setFailed(true)}
+      style={style}
       className={`object-cover ${className}`}
     />
   )
@@ -92,7 +96,8 @@ export function Reveal({
         el.classList.remove('reveal-pending')
         io.disconnect()
       },
-      { threshold: 0.12 },
+      // threshold 0 + rootMargin: elemen sepanjang apapun tetap kepicu begitu ujung atasnya masuk layar
+      { threshold: 0, rootMargin: '0px 0px -8% 0px' },
     )
     io.observe(el)
     return () => io.disconnect()

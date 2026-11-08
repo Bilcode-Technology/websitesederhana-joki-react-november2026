@@ -2,6 +2,9 @@ import { useEffect, useRef, useState } from 'react'
 import { journey, sections } from '../content'
 import { Photo, SectionHead } from './ui'
 
+/** bingkai ngikutin bentuk foto, tapi dibatasi biar ga kepanjangan / kelebaran */
+const frameRatio = (r: number) => Math.min(4 / 3, Math.max(3 / 4, r))
+
 export function Journey() {
   const trackRef = useRef<HTMLDivElement>(null)
   const [active, setActive] = useState(0)
@@ -36,7 +39,7 @@ export function Journey() {
 
       <div
         ref={trackRef}
-        className="no-scrollbar mx-auto flex max-w-3xl snap-x snap-mandatory gap-5 overflow-x-auto px-[10%] pt-2 pb-8"
+        className="no-scrollbar mx-auto flex max-w-3xl snap-x snap-mandatory items-center gap-5 overflow-x-auto px-[10%] pt-2 pb-8"
         onKeyDown={(e) => {
           if (e.key === 'ArrowRight') go(active + 1)
           if (e.key === 'ArrowLeft') go(active - 1)
@@ -52,13 +55,18 @@ export function Journey() {
             }`}
           >
             <div className="bg-sheet p-3 pb-5 text-leaf shadow-[0_24px_40px_-20px_black]" style={{ rotate: `${i % 2 ? 1.2 : -1.2}deg` }}>
-              <Photo src={item.photo} alt={item.title} label={`foto ${item.month} 💗`} className="aspect-[4/5] w-full" />
+              <Photo
+                src={item.photo}
+                alt={`momen kita di bulan ${item.month}`}
+                label={`foto ${item.month} 💗`}
+                className="w-full"
+                style={{ aspectRatio: frameRatio(item.ratio) }}
+              />
               <div className="mt-4 flex items-baseline gap-3">
                 <span className="font-display text-4xl leading-none font-black text-raspberry">{String(i + 1).padStart(2, '0')}</span>
-                <span className="font-hand text-2xl leading-none">{item.month}</span>
+                <h3 className="font-display text-2xl leading-none font-bold italic">{item.month}</h3>
               </div>
-              <h3 className="mt-2 font-display text-xl leading-snug font-bold">{item.title}</h3>
-              <p className="mt-2 text-[15px] leading-relaxed">{item.caption}</p>
+              <p className="mt-3 text-[15px] leading-relaxed">{item.caption}</p>
             </div>
           </article>
         ))}
